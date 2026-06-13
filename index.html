@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Projects - Hub Personnel</title>
+    <style>
+        /* --- DESIGN SYSTEM --- */
+        :root {
+            --bg-darker: #0b0f19;
+            --bg-card: #131a26;
+            --bg-card-hover: #1b2536;
+            --cyan-glow: #00a8ff;
+            --text-white: #ffffff;
+            --text-gray: #94a3b8;
+            
+            /* Couleurs des Badges d'état */
+            --badge-green: #10b981;    /* En ligne */
+            --badge-yellow: #f59e0b;   /* En cours / Bientôt */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent
+        } 
+
+        body {
+            background-color: var(--bg-darker);
+            color: var(--text-white);
+            min-height: 100vh;
+            padding: 3rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- HEADER & NAVIGATION --- */
+        header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .main-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 0.2rem;
+        }
+
+        .subtitle {
+            color: var(--cyan-glow);
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2.5rem;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            list-style: none;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 1.2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            padding-bottom: 1.1rem;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--cyan-glow);
+            border-bottom-color: var(--cyan-glow);
+        }
+
+        /* --- TITRE DE SECTION --- */
+        .section-title {
+            font-size: 1.6rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 700;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 26px;
+            background-color: var(--cyan-glow);
+            border-radius: 4px;
+        }
+
+        /* --- GRILLE DE CARTES --- */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .project-card {
+            background-color: var(--bg-card);
+            border: 1px solid #233147;
+            border-radius: 12px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            min-height: 280px;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            background-color: var(--bg-card-hover);
+            border-color: var(--cyan-glow);
+            box-shadow: 0 10px 30px rgba(0, 168, 255, 0.15);
+        }
+
+        .status-badge {
+            align-self: flex-start;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 0.35rem 0.9rem;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-badge.success { background-color: var(--badge-green); color: #fff; }
+        .status-badge.warning { background-color: var(--badge-yellow); color: #000; }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .project-card p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .btn-visit {
+            display: block;
+            text-align: center;
+            border: 2px solid var(--cyan-glow);
+            background: transparent;
+            color: var(--cyan-glow);
+            padding: 0.8rem 0;
+            width: 100%;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            margin-top: auto;
+        }
+
+        .btn-visit:hover {
+            background-color: var(--cyan-glow);
+            color: var(--bg-darker);
+            box-shadow: 0 0 20px rgba(0, 168, 255, 0.4);
+        }
+
+        /* Style spécial pour le bouton désactivé du projet secret */
+        .btn-disabled {
+            border: 2px solid #233147;
+            color: var(--text-gray);
+            cursor: not-allowed;
+        }
+        .btn-disabled:hover {
+            background: transparent;
+            color: var(--text-gray);
+            box-shadow: none;
+        }
+
+        /* --- SECTION À PROPOS --- */
+        .about-section {
+            background-color: var(--bg-card);
+            border: 1px solid #233147;
+            border-radius: 12px;
+            padding: 2.5rem;
+        }
+
+        .about-text {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* --- CLASSE DE MASQUAGE --- */
+        .hidden {
+            display: none !important;
+        }
+
+        #section-mes-sites {
+            margin-bottom: 5rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            margin-top: 6rem;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1 class="main-title">Mon Projects</h1>
+            <div class="subtitle">Mon Hub Personnel</div>
+            
+            <nav>
+                <ul>
+                    <li><a id="nav-accueil" class="active">Accueil</a></li>
+                    <li><a id="nav-sites">Mes Sites</a></li>
+                    <li><a id="nav-apropos">À Propos</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            
+            <section id="section-mes-sites">
+                <h2 class="section-title">Mes Créations & Plateformes</h2>
+                <div class="grid-layout">
+                    
+                    <article class="project-card">
+                        <div>
+                            <span class="status-badge success">En Ligne</span>
+                            <h3>Mon Site Sport</h3>
+                            <p>Le super site pour perdre du poids ou gagner du muscle !</p>
+                        </div>
+                        <a href="https://monsite1235.github.io/mon-site-sport/" target="_blank" class="btn-visit">Découvrir le site</a>
+                    </article>
+
+                    <article class="project-card">
+                        <div>
+                            <span class="status-badge success">En Ligne</span>
+                            <h3>Site Rocket League</h3>
+                            <p>Envie de devenir fort à Rocket League, ce site est fait pour toi !</p>
+                        </div>
+                        <a href="https://monsite1235.github.io/rocket/" target="_blank" class="btn-visit">Découvrir le site</a>
+                    </article>
+
+                    <article class="project-card">
+                        <div>
+                            <span class="status-badge warning">Bientôt</span>
+                            <h3>Nouveau collaborateur secret</h3>
+                            <p>Un nouveau projet ou partenariat confidentiel se prépare ici. Restez à l'écoute !</p>
+                        </div>
+                        <a class="btn-visit btn-disabled">Bientôt disponible</a>
+                    </article>
+
+                </div>
+            </section>
+
+            <section id="section-a-propos" class="about-section">
+                <h2 class="section-title" style="margin-bottom: 1.5rem;">À Propos</h2>
+                <p class="about-text">Je suis un jeune développeur qui adore l'informatique.</p>
+            </section>
+
+        </main>
+
+        <footer>
+            <p>&copy; 2026 — Hub personnel fait avec passion.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const navAccueil = document.getElementById('nav-accueil');
+        const navSites = document.getElementById('nav-sites');
+        const navApropos = document.getElementById('nav-apropos');
+
+        const sectionSites = document.getElementById('section-mes-sites');
+        const sectionApropos = document.getElementById('section-a-propos');
+
+        function clearActive() {
+            navAccueil.classList.remove('active');
+            navSites.classList.remove('active');
+            navApropos.classList.remove('active');
+        }
+
+        navAccueil.addEventListener('click', () => {
+            clearActive();
+            navAccueil.classList.add('active');
+            sectionSites.classList.remove('hidden');
+            sectionApropos.classList.remove('hidden');
+        });
+
+        navSites.addEventListener('click', () => {
+            clearActive();
+            navSites.classList.add('active');
+            sectionSites.classList.remove('hidden');
+            sectionApropos.classList.add('hidden');
+        });
+
+        navApropos.addEventListener('click', () => {
+            clearActive();
+            navApropos.classList.add('active');
+            sectionSites.classList.add('hidden');
+            sectionApropos.classList.remove('hidden');
+        });
+    </script>
+
+</body>
+</html>
