@@ -1,6 +1,6 @@
 
 
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -351,24 +351,6 @@
                 <h2 class="section-title" id="section-main-title">Mes Créations & Plateformes</h2>
                 <div class="grid-layout">
                     
-                    <article class="project-card" id="card-sport">
-                        <span class="status-badge success">En Ligne</span>
-                        <div>
-                            <h3>Mon Site Sport</h3>
-                            <p id="desc-sport">Le super site pour perdre du poids ou gagner du muscle !</p>
-                        </div>
-                        <a href="https://monsite1235.github.io/mon-site-sport/" target="_blank" class="btn-visit" id="btn-sport">Découvrir le site</a>
-                    </article>
-
-                    <article class="project-card" id="card-rocket">
-                        <span class="status-badge success">En Ligne</span>
-                        <div>
-                            <h3>Site Rocket League</h3>
-                            <p id="desc-rocket">Envie de devenir fort à Rocket League, ce site est fait pour toi !</p>
-                        </div>
-                        <a href="https://monsite1235.github.io/rocket/" target="_blank" class="btn-visit" id="btn-rocket">Découvrir le site</a>
-                    </article>
-
                     <article class="project-card" id="collab-card">
                         <span class="status-badge purple">Terminé</span>
                         <div>
@@ -385,6 +367,24 @@
                             <p>Le nouveau jeu secret qui va révolutionner le monde !</p>
                         </div>
                         <a class="btn-visit btn-disabled">Bientôt disponible</a>
+                    </article>
+
+                    <article class="project-card" id="card-sport">
+                        <span class="status-badge success">En Ligne</span>
+                        <div>
+                            <h3>Mon Site Sport</h3>
+                            <p id="desc-sport">Le super site pour perdre du poids ou gagner du muscle !</p>
+                        </div>
+                        <a href="https://monsite1235.github.io/mon-site-sport/" target="_blank" class="btn-visit" id="btn-sport">Découvrir le site</a>
+                    </article>
+
+                    <article class="project-card" id="card-rocket">
+                        <span class="status-badge success">En Ligne</span>
+                        <div>
+                            <h3>Site Rocket League</h3>
+                            <p id="desc-rocket">Envie de devenir fort à Rocket League, ce site est fait pour toi !</p>
+                        </div>
+                        <a href="https://monsite1235.github.io/rocket/" target="_blank" class="btn-visit" id="btn-rocket">Découvrir le site</a>
                     </article>
 
                 </div>
@@ -486,7 +486,7 @@
             clearActive();
             navSites.classList.add('active');
             sectionSites.classList.remove('hidden');
-            sectionApropos.classList.add('hidden');
+            sectionApropos.add('hidden');
             
             // Configuration mode MES SITES
             sectionMainTitle.textContent = "Mes Créations & Plateformes";
