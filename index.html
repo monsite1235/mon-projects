@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+
+
+  <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -17,6 +19,7 @@
             /* Couleurs des Badges d'état */
             --badge-green: #10b981;    /* En ligne */
             --badge-yellow: #f59e0b;   /* En cours / Bientôt */
+            --badge-purple: #a855f7;   /* Collaborateur (S'accorde parfaitement avec le bleu cyan) */
         }
 
         * {
@@ -159,6 +162,7 @@
 
         .status-badge.success { background-color: var(--badge-green); color: #fff; }
         .status-badge.warning { background-color: var(--badge-yellow); color: #000; }
+        .status-badge.purple { background-color: var(--badge-purple); color: #fff; }
 
         .project-card h3 {
             font-size: 1.5rem;
@@ -171,6 +175,12 @@
             font-size: 0.95rem;
             line-height: 1.6;
             margin-bottom: 2rem;
+        }
+
+        /* Style spécifique pour mettre en valeur l'indication de redirection */
+        .redirect-text {
+            color: var(--cyan-glow) !important;
+            font-weight: 600;
         }
 
         .btn-visit {
@@ -221,6 +231,85 @@
             line-height: 1.7;
         }
 
+        /* --- STYLES DE LA FENÊTRE D'INFOS (MODALE) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(7, 11, 25, 0.85);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background-color: var(--bg-card);
+            border: 1px solid #233147;
+            padding: 2.5rem;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content h3 {
+            font-size: 1.8rem;
+            color: var(--text-white);
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .modal-info-box {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--cyan-glow);
+            text-align: left;
+        }
+
+        .modal-info-box p {
+            font-size: 1.1rem;
+            color: var(--text-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-info-box p span {
+            color: var(--text-gray);
+            font-weight: 400;
+        }
+
+        /* Style des liens réseaux dans la modale */
+        .modal-info-box p a {
+            color: var(--cyan-glow);
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        .modal-info-box p a:hover {
+            text-decoration: underline;
+        }
+
         /* --- CLASSE DE MASQUAGE --- */
         .hidden {
             display: none !important;
@@ -259,32 +348,41 @@
         <main>
             
             <section id="section-mes-sites">
-                <h2 class="section-title">Mes Créations & Plateformes</h2>
+                <h2 class="section-title" id="section-main-title">Mes Créations & Plateformes</h2>
                 <div class="grid-layout">
                     
-                    <article class="project-card">
+                    <article class="project-card" id="card-sport">
                         <span class="status-badge success">En Ligne</span>
                         <div>
                             <h3>Mon Site Sport</h3>
-                            <p>Le super site pour perdre du poids ou gagner du muscle !</p>
+                            <p id="desc-sport">Le super site pour perdre du poids ou gagner du muscle !</p>
                         </div>
-                        <a href="https://monsite1235.github.io/mon-site-sport/" target="_blank" class="btn-visit">Découvrir le site</a>
+                        <a href="https://monsite1235.github.io/mon-site-sport/" target="_blank" class="btn-visit" id="btn-sport">Découvrir le site</a>
                     </article>
 
-                    <article class="project-card">
+                    <article class="project-card" id="card-rocket">
                         <span class="status-badge success">En Ligne</span>
                         <div>
                             <h3>Site Rocket League</h3>
-                            <p>Envie de devenir fort à Rocket League, ce site est fait pour toi !</p>
+                            <p id="desc-rocket">Envie de devenir fort à Rocket League, ce site est fait pour toi !</p>
                         </div>
-                        <a href="https://monsite1235.github.io/rocket/" target="_blank" class="btn-visit">Découvrir le site</a>
+                        <a href="https://monsite1235.github.io/rocket/" target="_blank" class="btn-visit" id="btn-rocket">Découvrir le site</a>
                     </article>
 
-                    <article class="project-card">
+                    <article class="project-card" id="collab-card">
+                        <span class="status-badge purple">Terminé</span>
+                        <div>
+                            <h3>Collaborateur</h3>
+                            <p>Cliquez sur le bouton ci-dessous pour voir les détails de notre membre d'équipe.</p>
+                        </div>
+                        <button class="btn-visit" id="btn-open-collab">Voir le membre</button>
+                    </article>
+
+                    <article class="project-card" id="card-secret">
                         <span class="status-badge warning">Bientôt</span>
                         <div>
-                            <h3>Nouveau collaborateur secret</h3>
-                            <p>Un nouveau projet ou partenariat confidentiel se prépare ici. Restez à l'écoute !</p>
+                            <h3>Nouveau jeu secret</h3>
+                            <p>Le nouveau jeu secret qui va révolutionner le monde !</p>
                         </div>
                         <a class="btn-visit btn-disabled">Bientôt disponible</a>
                     </article>
@@ -299,6 +397,23 @@
 
         </main>
 
+        <div class="modal-overlay" id="collab-modal">
+            <div class="modal-content">
+                <h3>Fiche Collaborateur</h3>
+                <div class="modal-info-box">
+                    <p><strong>Nom :</strong> <span>Evan</span></p>
+                    <p><strong>Place dans l'équipe :</strong> <span>Éditeur</span></p>
+                    <p style="margin-bottom: 0;"><strong>Réseaux :</strong> 
+                        <span>
+                            <a href="https://www.tiktok.com/@mr.ewan57?lang=fr" target="_blank">TikTok</a> / 
+                            <a href="https://www.twitch.tv/kizro57" target="_blank">Twitch</a>
+                        </span>
+                    </p>
+                </div>
+                <button class="btn-visit" id="btn-close-collab">Fermer les détails</button>
+            </div>
+        </div>
+
         <footer>
             <p>&copy; 2026 — Hub personnel fait avec passion.</p>
         </footer>
@@ -312,6 +427,34 @@
 
         const sectionSites = document.getElementById('section-mes-sites');
         const sectionApropos = document.getElementById('section-a-propos');
+        const sectionMainTitle = document.getElementById('section-main-title');
+        
+        // Eléments des cartes à modifier dynamiquement
+        const descSport = document.getElementById('desc-sport');
+        const btnSport = document.getElementById('btn-sport');
+        const descRocket = document.getElementById('desc-rocket');
+        const btnRocket = document.getElementById('btn-rocket');
+        const collabCard = document.getElementById('collab-card');
+
+        // Gestion de la fenêtre d'informations (Modale)
+        const modal = document.getElementById('collab-modal');
+        const btnOpen = document.getElementById('btn-open-collab');
+        const btnClose = document.getElementById('btn-close-collab');
+
+        btnOpen.addEventListener('click', () => {
+            modal.classList.add('active');
+        });
+
+        btnClose.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        // Fermer aussi la fenêtre si on clique en dehors de la boîte
+        modal.addEventListener('click', (e) => {
+            if(e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
 
         function clearActive() {
             navAccueil.classList.remove('active');
@@ -324,6 +467,19 @@
             navAccueil.classList.add('active');
             sectionSites.classList.remove('hidden');
             sectionApropos.classList.remove('hidden');
+            
+            // Configuration mode ACCUEIL
+            sectionMainTitle.textContent = "Accueil";
+            
+            // On change les descriptions et on masque les boutons d'accès direct
+            descSport.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
+            btnSport.classList.add('hidden');
+            
+            descRocket.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
+            btnRocket.classList.add('hidden');
+
+            // Le collaborateur reste affiché sur l'accueil
+            collabCard.classList.remove('hidden');
         });
 
         navSites.addEventListener('click', () => {
@@ -331,6 +487,19 @@
             navSites.classList.add('active');
             sectionSites.classList.remove('hidden');
             sectionApropos.classList.add('hidden');
+            
+            // Configuration mode MES SITES
+            sectionMainTitle.textContent = "Mes Créations & Plateformes";
+            
+            // On remet les vraies descriptions et on réaffiche les boutons de visite
+            descSport.textContent = "Le super site pour perdre du poids ou gagner du muscle !";
+            btnSport.classList.remove('hidden');
+            
+            descRocket.textContent = "Envie de devenir fort à Rocket League, ce site est fait pour toi !";
+            btnRocket.classList.remove('hidden');
+
+            // On cache le collaborateur dans l'onglet Mes Sites
+            collabCard.classList.add('hidden');
         });
 
         navApropos.addEventListener('click', () => {
@@ -339,6 +508,13 @@
             sectionSites.classList.add('hidden');
             sectionApropos.classList.remove('hidden');
         });
+
+        // Lancer la configuration initiale de l'accueil au chargement du site
+        descSport.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
+        btnSport.classList.add('hidden');
+        descRocket.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
+        btnRocket.classList.add('hidden');
+        sectionMainTitle.textContent = "Accueil";
     </script>
 
 </body>
