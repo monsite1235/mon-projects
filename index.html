@@ -434,6 +434,7 @@
         const descRocket = document.getElementById('desc-rocket');
         const btnRocket = document.getElementById('btn-rocket');
         const collabCard = document.getElementById('collab-card');
+        const cardSecret = document.getElementById('card-secret');
 
         // Gestion de la fenêtre d'informations (Modale)
         const modal = document.getElementById('collab-modal');
@@ -477,15 +478,16 @@
             descRocket.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
             btnRocket.classList.add('hidden');
 
-            // Le collaborateur reste affiché sur l'accueil
+            // Le collaborateur et le projet secret restent affichés sur l'accueil
             collabCard.classList.remove('hidden');
+            cardSecret.classList.remove('hidden');
         });
 
         navSites.addEventListener('click', () => {
             clearActive();
             navSites.classList.add('active');
             sectionSites.classList.remove('hidden');
-            sectionApropos.add('hidden');
+            sectionApropos.classList.add('hidden');
             
             // Configuration mode MES SITES
             sectionMainTitle.textContent = "Mes Créations & Plateformes";
@@ -497,8 +499,9 @@
             descRocket.textContent = "Envie de devenir fort à Rocket League, ce site est fait pour toi !";
             btnRocket.classList.remove('hidden');
 
-            // On cache le collaborateur dans l'onglet Mes Sites
+            // On cache le collaborateur et le jeu secret pour n'avoir QUE les 2 blocs de sites en ligne
             collabCard.classList.add('hidden');
+            cardSecret.classList.add('hidden');
         });
 
         navApropos.addEventListener('click', () => {
