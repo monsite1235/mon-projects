@@ -414,6 +414,15 @@
                         <a href="https://monsite1235.github.io/rocket/" target="_blank" class="btn-visit" id="btn-rocket">Découvrir le site</a>
                     </article>
 
+                    <article class="project-card" id="card-nutrition">
+                        <span class="status-badge success">En Ligne</span>
+                        <div>
+                            <h3>Mon Site Nutrition</h3>
+                            <p id="desc-nutrition">Apprends à mieux manger et équilibrer tes assiettes au quotidien !</p>
+                        </div>
+                        <a href="https://monsite1235.github.io/nutrition/" target="_blank" class="btn-visit" id="btn-nutrition">Découvrir le site</a>
+                    </article>
+
                 </div>
             </section>
 
@@ -462,6 +471,8 @@
         const btnRocket = document.getElementById('btn-rocket');
         const descReverse = document.getElementById('desc-reverse');
         const btnReverse = document.getElementById('btn-reverse');
+        const descNutrition = document.getElementById('desc-nutrition');
+        const btnNutrition = document.getElementById('btn-nutrition');
         const collabCard = document.getElementById('collab-card');
         const cardReverseMan = document.getElementById('card-reverse-man');
 
@@ -506,6 +517,9 @@
             descReverse.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
             btnReverse.classList.add('hidden');
 
+            descNutrition.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
+            btnNutrition.classList.add('hidden');
+
             collabCard.classList.remove('hidden');
             cardReverseMan.classList.remove('hidden');
         });
@@ -527,6 +541,9 @@
             descReverse.textContent = "Prêt à inverser la tendance ? Découvrez le super jeu Reverse-man !";
             btnReverse.classList.remove('hidden');
 
+            descNutrition.textContent = "Apprends à mieux manger et équilibrer tes assiettes au quotidien !";
+            btnNutrition.classList.remove('hidden');
+
             collabCard.classList.add('hidden');
             cardReverseMan.classList.remove('hidden');
         });
@@ -544,6 +561,8 @@
         btnRocket.classList.add('hidden');
         descReverse.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
         btnReverse.classList.add('hidden');
+        descNutrition.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
+        btnNutrition.classList.add('hidden');
         sectionMainTitle.textContent = "Accueil";
     </script>
 
