@@ -18,7 +18,9 @@
             /* Couleurs des Badges d'état */
             --badge-green: #10b981;    /* En ligne */
             --badge-yellow: #f59e0b;   /* En cours / Bientôt */
-            --badge-purple: #a855f7;   /* Collaborateur (S'accorde parfaitement avec le bleu cyan) */
+            --badge-purple: #a855f7;   /* Collaborateur */
+            --badge-blue: #00a8ff;     /* Actualités */
+            --badge-red: #ef4444;      /* Maintenance / Alerte */
         }
 
         * {
@@ -192,6 +194,8 @@
         .status-badge.success { background-color: var(--badge-green); color: #fff; }
         .status-badge.warning { background-color: var(--badge-yellow); color: #000; }
         .status-badge.purple { background-color: var(--badge-purple); color: #fff; }
+        .status-badge.info { background-color: var(--badge-blue); color: #fff; }
+        .status-badge.danger { background-color: var(--badge-red); color: #fff; }
 
         .project-card h3 {
             font-size: 1.5rem;
@@ -378,6 +382,14 @@
                 <h2 class="section-title" id="section-main-title">Mes Créations & Plateformes</h2>
                 <div class="grid-layout">
                     
+                    <article class="project-card" id="news-card">
+                        <span class="status-badge info">Actualité</span>
+                        <div>
+                            <h3>Des nouvelles !</h3>
+                            <p>Bonjour à tous ! Ayant beaucoup travaillé ces derniers temps, je m'accorde une petite pause bien méritée. Ne vous inquiétez pas, ce ne sera pas long !<br><br>J'en profite pour vous annoncer l'arrivée prochaine d'un tout nouveau projet (encore secret pour le moment). Restez connectés !</p>
+                        </div>
+                    </article>
+
                     <article class="project-card" id="collab-card">
                         <span class="status-badge purple">Terminé</span>
                         <div>
@@ -385,6 +397,15 @@
                             <p>Cliquez sur le bouton ci-dessous pour voir les détails de notre membre d'équipe.</p>
                         </div>
                         <button class="btn-visit" id="btn-open-collab">Voir le membre</button>
+                    </article>
+
+                    <article class="project-card" id="card-nutrition">
+                        <span class="status-badge danger" id="badge-nutrition">Maintenance</span>
+                        <div>
+                            <h3>Mon Site Nutrition</h3>
+                            <p id="desc-nutrition">Apprends à mieux manger et équilibrer tes assiettes au quotidien !</p>
+                        </div>
+                        <a href="https://monsite1235.github.io/nutrition/" target="_blank" class="btn-visit" id="btn-nutrition">Découvrir le site</a>
                     </article>
 
                     <article class="project-card" id="card-reverse-man">
@@ -412,15 +433,6 @@
                             <p id="desc-rocket">Envie de devenir fort à Rocket League, ce site est fait pour toi !</p>
                         </div>
                         <a href="https://monsite1235.github.io/rocket/" target="_blank" class="btn-visit" id="btn-rocket">Découvrir le site</a>
-                    </article>
-
-                    <article class="project-card" id="card-nutrition">
-                        <span class="status-badge success">En Ligne</span>
-                        <div>
-                            <h3>Mon Site Nutrition</h3>
-                            <p id="desc-nutrition">Apprends à mieux manger et équilibrer tes assiettes au quotidien !</p>
-                        </div>
-                        <a href="https://monsite1235.github.io/nutrition/" target="_blank" class="btn-visit" id="btn-nutrition">Découvrir le site</a>
                     </article>
 
                 </div>
@@ -473,8 +485,10 @@
         const btnReverse = document.getElementById('btn-reverse');
         const descNutrition = document.getElementById('desc-nutrition');
         const btnNutrition = document.getElementById('btn-nutrition');
+        const badgeNutrition = document.getElementById('badge-nutrition');
         const collabCard = document.getElementById('collab-card');
         const cardReverseMan = document.getElementById('card-reverse-man');
+        const newsCard = document.getElementById('news-card');
 
         const modal = document.getElementById('collab-modal');
         const btnOpen = document.getElementById('btn-open-collab');
@@ -517,11 +531,12 @@
             descReverse.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
             btnReverse.classList.add('hidden');
 
-            descNutrition.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
+            descNutrition.innerHTML = '<span class="redirect-text">Ce site est actuellement indisponible (Maintenance).</span>';
             btnNutrition.classList.add('hidden');
 
             collabCard.classList.remove('hidden');
             cardReverseMan.classList.remove('hidden');
+            newsCard.classList.remove('hidden');
         });
 
         navSites.addEventListener('click', () => {
@@ -543,9 +558,12 @@
 
             descNutrition.textContent = "Apprends à mieux manger et équilibrer tes assiettes au quotidien !";
             btnNutrition.classList.remove('hidden');
+            btnNutrition.classList.add('btn-disabled');
+            btnNutrition.removeAttribute('href'); 
 
             collabCard.classList.add('hidden');
             cardReverseMan.classList.remove('hidden');
+            newsCard.classList.add('hidden');
         });
 
         navApropos.addEventListener('click', () => {
@@ -555,13 +573,14 @@
             sectionApropos.classList.remove('hidden');
         });
 
+        // Init au chargement
         descSport.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
         btnSport.classList.add('hidden');
         descRocket.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
         btnRocket.classList.add('hidden');
         descReverse.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
         btnReverse.classList.add('hidden');
-        descNutrition.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
+        descNutrition.innerHTML = '<span class="redirect-text">Ce site est actuellement indisponible (Maintenance).</span>';
         btnNutrition.classList.add('hidden');
         sectionMainTitle.textContent = "Accueil";
     </script>
