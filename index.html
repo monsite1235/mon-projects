@@ -21,6 +21,7 @@
             --badge-purple: #a855f7;   /* Collaborateur */
             --badge-blue: #00a8ff;     /* Actualités */
             --badge-red: #ef4444;      /* Maintenance / Alerte */
+            --badge-twitch: #9146ff;   /* Twitch */
         }
 
         * {
@@ -177,6 +178,33 @@
             box-shadow: 0 10px 30px rgba(0, 168, 255, 0.15);
         }
 
+        /* --- STYLE SPECIAL CARTE TWITCH --- */
+        .twitch-card {
+            background: linear-gradient(135deg, #18141c 0%, #261937 100%);
+            border: 1px solid #4b2a85;
+        }
+        
+        .twitch-card:hover {
+            background: linear-gradient(135deg, #1f1926 0%, #32204a 100%);
+            border-color: #9146ff;
+            box-shadow: 0 10px 30px rgba(145, 70, 255, 0.25);
+        }
+
+        .twitch-card p {
+            color: #ded6ea !important;
+        }
+
+        .btn-twitch {
+            border: 2px solid #9146ff !important;
+            color: #9146ff !important;
+        }
+
+        .btn-twitch:hover {
+            background-color: #9146ff !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 20px rgba(145, 70, 255, 0.5) !important;
+        }
+
         .status-badge {
             position: absolute;
             top: 1rem;
@@ -196,6 +224,7 @@
         .status-badge.purple { background-color: var(--badge-purple); color: #fff; }
         .status-badge.info { background-color: var(--badge-blue); color: #fff; }
         .status-badge.danger { background-color: var(--badge-red); color: #fff; }
+        .status-badge.twitch { background-color: var(--badge-twitch); color: #fff; }
 
         .project-card h3 {
             font-size: 1.5rem;
@@ -249,8 +278,8 @@
             box-shadow: none;
         }
 
-        /* --- SECTION À PROPOS --- */
-        .about-section {
+        /* --- SECTION À PROPOS & RÉSEAUX --- */
+        .about-section, .networks-section {
             background-color: var(--bg-card);
             border: 1px solid #233147;
             border-radius: 12px;
@@ -346,7 +375,7 @@
             display: none !important;
         }
 
-        #section-mes-sites {
+        #section-mes-sites, #section-mes-reseaux {
             margin-bottom: 5rem;
         }
 
@@ -371,6 +400,7 @@
                 <ul>
                     <li><a id="nav-accueil" class="active">Accueil</a></li>
                     <li><a id="nav-sites">Mes Sites</a></li>
+                    <li><a id="nav-reseaux">Mes Réseaux</a></li>
                     <li><a id="nav-apropos">À Propos</a></li>
                 </ul>
             </nav>
@@ -385,8 +415,8 @@
                     <article class="project-card" id="news-card">
                         <span class="status-badge info">Actualité</span>
                         <div>
-                            <h3>Des nouvelles !</h3>
-                            <p>Bonjour à tous ! Ayant beaucoup travaillé ces derniers temps, je m'accorde une petite pause bien méritée. Ne vous inquiétez pas, ce ne sera pas long !<br><br>J'en profite pour vous annoncer l'arrivée prochaine d'un tout nouveau projet (encore secret pour le moment). Restez connectés !</p>
+                            <h3>Mise à jour</h3>
+                            <p>Vous pouvez désormais officiellement consulter l'ensemble de mes profils et réseaux externes directement depuis l'onglet dédié dans la navigation. Merci pour votre soutien !</p>
                         </div>
                     </article>
 
@@ -438,6 +468,21 @@
                 </div>
             </section>
 
+            <!-- SECTION MES RÉSEAUX -->
+            <section id="section-mes-reseaux" class="hidden">
+                <h2 class="section-title">Mes Réseaux Sociaux</h2>
+                <div class="grid-layout">
+                    <article class="project-card twitch-card">
+                        <span class="status-badge twitch">Twitch</span>
+                        <div>
+                            <h3>levraigas211</h3>
+                            <p>Rejoignez-moi en direct pour partager des moments de gaming uniques et interagir avec la communauté !</p>
+                        </div>
+                        <a href="https://www.twitch.tv/levraigas211" target="_blank" class="btn-visit btn-twitch">Suivre sur Twitch</a>
+                    </article>
+                </div>
+            </section>
+
             <section id="section-a-propos" class="about-section">
                 <h2 class="section-title" style="margin-bottom: 1.5rem;">À Propos</h2>
                 <p class="about-text">Je suis un jeune développeur qui adore l'informatique.</p>
@@ -471,9 +516,11 @@
     <script>
         const navAccueil = document.getElementById('nav-accueil');
         const navSites = document.getElementById('nav-sites');
+        const navReseaux = document.getElementById('nav-reseaux');
         const navApropos = document.getElementById('nav-apropos');
 
         const sectionSites = document.getElementById('section-mes-sites');
+        const sectionReseaux = document.getElementById('section-mes-reseaux');
         const sectionApropos = document.getElementById('section-a-propos');
         const sectionMainTitle = document.getElementById('section-main-title');
         
@@ -511,6 +558,7 @@
         function clearActive() {
             navAccueil.classList.remove('active');
             navSites.classList.remove('active');
+            navReseaux.classList.remove('active');
             navApropos.classList.remove('active');
         }
 
@@ -518,6 +566,7 @@
             clearActive();
             navAccueil.classList.add('active');
             sectionSites.classList.remove('hidden');
+            sectionReseaux.classList.add('hidden');
             sectionApropos.classList.remove('hidden');
             
             sectionMainTitle.textContent = "Accueil";
@@ -543,6 +592,7 @@
             clearActive();
             navSites.classList.add('active');
             sectionSites.classList.remove('hidden');
+            sectionReseaux.classList.add('hidden');
             sectionApropos.classList.add('hidden');
             
             sectionMainTitle.textContent = "Mes Créations & Plateformes";
@@ -566,10 +616,19 @@
             newsCard.classList.add('hidden');
         });
 
+        navReseaux.addEventListener('click', () => {
+            clearActive();
+            navReseaux.classList.add('active');
+            sectionSites.classList.add('hidden');
+            sectionReseaux.classList.remove('hidden');
+            sectionApropos.classList.add('hidden');
+        });
+
         navApropos.addEventListener('click', () => {
             clearActive();
             navApropos.classList.add('active');
             sectionSites.classList.add('hidden');
+            sectionReseaux.classList.add('hidden');
             sectionApropos.classList.remove('hidden');
         });
 
