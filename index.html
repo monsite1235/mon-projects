@@ -16,7 +16,7 @@
             --text-gray: #94a3b8;
             
             /* Couleurs des Badges d'état */
-            --badge-green: #10b981;    /* En ligne */
+            --badge-green: #10b981;    /* En ligne / Eclipse Groupe */
             --badge-yellow: #f59e0b;   /* En cours / Bientôt */
             --badge-purple: #a855f7;   /* Collaborateur */
             --badge-blue: #00a8ff;     /* Actualités */
@@ -76,6 +76,7 @@
             padding-bottom: 1.2rem;
             max-width: 900px;
             margin: 0 auto;
+            flex-wrap: wrap;
         }
 
         nav a {
@@ -278,18 +279,171 @@
             box-shadow: none;
         }
 
-        /* --- SECTION À PROPOS & RÉSEAUX --- */
-        .about-section, .networks-section {
+        /* --- SECTION À PROPOS & RÉSEAUX & QUESTIONS --- */
+        .about-section, .networks-section, .qa-section {
             background-color: var(--bg-card);
             border: 1px solid #233147;
             border-radius: 12px;
             padding: 2.5rem;
+            margin-bottom: 2.5rem;
         }
 
         .about-text {
             color: var(--text-gray);
             font-size: 1.1rem;
             line-height: 1.7;
+        }
+
+        /* --- SYSTEME DE QUESTIONS / REPONSES --- */
+        .qa-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 3rem;
+            background: rgba(255,255,255,0.02);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #1e293b;
+        }
+
+        .qa-input, .qa-textarea {
+            background-color: var(--bg-darker);
+            border: 1px solid #233147;
+            color: var(--text-white);
+            padding: 0.8rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .qa-input:focus, .qa-textarea:focus {
+            border-color: var(--cyan-glow);
+        }
+
+        .qa-checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-gray);
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .qa-checkbox-label input {
+            accent-color: var(--cyan-glow);
+            width: 16px;
+            height: 16px;
+        }
+
+        .btn-submit-qa {
+            background-color: var(--cyan-glow);
+            color: var(--bg-darker);
+            border: none;
+            padding: 0.8rem;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-submit-qa:hover {
+            opacity: 0.9;
+        }
+
+        .questions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .question-item {
+            background: #172237;
+            border: 1px solid #233147;
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.6rem;
+        }
+
+        .question-author {
+            font-weight: 700;
+            color: var(--cyan-glow);
+        }
+
+        .question-text {
+            color: var(--text-white);
+            line-height: 1.5;
+        }
+
+        .answer-box {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #233147;
+            color: var(--badge-green);
+        }
+
+        .answer-author {
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.3rem;
+        }
+
+        /* --- ADMIN PANEL SYSTEM --- */
+        .admin-panel {
+            background: #1e1b29;
+            border: 2px solid #ef4444;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 5rem;
+        }
+        .admin-title {
+            color: #ef4444;
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        .admin-table th, .admin-table td {
+            border: 1px solid #3b334a;
+            padding: 0.8rem;
+            text-align: left;
+        }
+        .admin-table th {
+            background: #2a2438;
+        }
+        .admin-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .btn-admin-del {
+            background: var(--badge-red);
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-admin-rep {
+            background: var(--badge-green);
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
         }
 
         /* --- STYLES DE LA FENÊTRE D'INFOS (MODALE) --- */
@@ -401,6 +555,7 @@
                     <li><a id="nav-accueil" class="active">Accueil</a></li>
                     <li><a id="nav-sites">Mes Sites</a></li>
                     <li><a id="nav-reseaux">Mes Réseaux</a></li>
+                    <li><a id="nav-questions">Questions</a></li>
                     <li><a id="nav-apropos">À Propos</a></li>
                 </ul>
             </nav>
@@ -483,9 +638,48 @@
                 </div>
             </section>
 
+            <!-- SECTION QUESTIONS -->
+            <section id="section-questions" class="qa-section hidden">
+                <h2 class="section-title">Foire Aux Questions & Entraide</h2>
+                
+                <form class="qa-form" id="form-qa">
+                    <input type="text" id="qa-name" class="qa-input" placeholder="Votre nom" required>
+                    <textarea id="qa-message" class="qa-textarea" rows="4" placeholder="Votre question..." required></textarea>
+                    
+                    <label class="qa-checkbox-label">
+                        <input type="checkbox" id="qa-anon">
+                        Poser ma question anonymement
+                    </label>
+                    
+                    <button type="submit" class="btn-submit-qa">Envoyer la question</button>
+                </form>
+
+                <div class="questions-list" id="wrapper-questions">
+                    <!-- Les questions apparaitront ici -->
+                </div>
+            </section>
+
             <section id="section-a-propos" class="about-section">
                 <h2 class="section-title" style="margin-bottom: 1.5rem;">À Propos</h2>
                 <p class="about-text">Je suis un jeune développeur qui adore l'informatique.</p>
+            </section>
+            
+            <!-- CONSOLE ADMINISTRATION PRIVÉE -->
+            <section id="section-admin" class="admin-panel hidden">
+                <h3 class="admin-title">Panel Admin — Eclipse Groupe Privé</h3>
+                <p style="color: var(--text-gray); margin-bottom: 1rem;">Gérez ici les messages reçus et répondez-y directement.</p>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Auteur</th>
+                            <th>Question</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-table-body">
+                        <!-- Lignes générées en JS -->
+                    </tbody>
+                </table>
             </section>
 
         </main>
@@ -513,15 +707,42 @@
 
     </div>
 
-    <script>
+    <!-- CONNEXION BASE DE DONNÉES FIREBASE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+        import { getDatabase, ref, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+
+        // Ta configuration officielle
+        const firebaseConfig = {
+            apiKey: "AIzaSyBlAiJFZPkZu5nBQbdEK6T2M8dP9Hxbjg4",
+            authDomain: "mon-hub-73234.firebaseapp.com",
+            projectId: "mon-hub-73234",
+            storageBucket: "mon-hub-73234.firebasestorage.app",
+            messagingSenderId: "471134899312",
+            appId: "1:471134899312:web:9e7274d521660b1addb8b5",
+            measurementId: "G-R1NDXE4ZRC"
+        };
+
+        // TODO: REMPLACE CETTE VALEUR PAR TON ADRESSE IP PUBLIQUE REELLE POUR ACCÉDER À L'ADMIN !
+        const MON_IP_ADMIN = "123.45.67.89"; 
+
+        // Initialisation de Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const questionsRef = ref(db, 'questions');
+
+        // Éléments du DOM
         const navAccueil = document.getElementById('nav-accueil');
         const navSites = document.getElementById('nav-sites');
         const navReseaux = document.getElementById('nav-reseaux');
+        const navQuestions = document.getElementById('nav-questions');
         const navApropos = document.getElementById('nav-apropos');
 
         const sectionSites = document.getElementById('section-mes-sites');
         const sectionReseaux = document.getElementById('section-mes-reseaux');
+        const sectionQuestions = document.getElementById('section-questions');
         const sectionApropos = document.getElementById('section-a-propos');
+        const sectionAdmin = document.getElementById('section-admin');
         const sectionMainTitle = document.getElementById('section-main-title');
         
         const descSport = document.getElementById('desc-sport');
@@ -532,7 +753,6 @@
         const btnReverse = document.getElementById('btn-reverse');
         const descNutrition = document.getElementById('desc-nutrition');
         const btnNutrition = document.getElementById('btn-nutrition');
-        const badgeNutrition = document.getElementById('badge-nutrition');
         const collabCard = document.getElementById('collab-card');
         const cardReverseMan = document.getElementById('card-reverse-man');
         const newsCard = document.getElementById('news-card');
@@ -541,108 +761,183 @@
         const btnOpen = document.getElementById('btn-open-collab');
         const btnClose = document.getElementById('btn-close-collab');
 
-        btnOpen.addEventListener('click', () => {
-            modal.classList.add('active');
+        const formQa = document.getElementById('form-qa');
+        const qaName = document.getElementById('qa-name');
+        const qaMessage = document.getElementById('qa-message');
+        const qaAnon = document.getElementById('qa-anon');
+        const wrapperQuestions = document.getElementById('wrapper-questions');
+        const adminTableBody = document.getElementById('admin-table-body');
+
+        let dbQuestions = [];
+
+        // --- AUTHENTIFICATION PAR ADRESSE IP ---
+        async function checkAdminIP() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                if (data.ip === MON_IP_ADMIN) {
+                    sectionAdmin.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error("Erreur de récupération IP:", error);
+            }
+        }
+
+        // --- ÉCOUTE DE LA BASE DE DONNÉES EN TEMPS RÉEL ---
+        onValue(questionsRef, (snapshot) => {
+            const data = snapshot.val();
+            dbQuestions = [];
+            if (data) {
+                Object.keys(data).forEach(key => {
+                    dbQuestions.push({ id: key, ...data[key] });
+                });
+            }
+            renderQuestions();
+            renderAdmin();
         });
 
-        btnClose.addEventListener('click', () => {
-            modal.classList.remove('active');
+        // Envoi de données à Firebase
+        formQa.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const authorName = qaAnon.checked ? "Anonyme" : qaName.value.trim();
+            const messageText = qaMessage.value.trim();
+
+            if(!messageText || !authorName) return;
+
+            push(questionsRef, {
+                author: authorName,
+                message: messageText,
+                answer: null,
+                date: new Date().toLocaleDateString('fr-FR')
+            });
+
+            qaMessage.value = "";
+            if(!qaAnon.checked) qaName.value = "";
         });
 
-        modal.addEventListener('click', (e) => {
-            if(e.target === modal) {
-                modal.classList.remove('active');
+        // Actions globales (Modération) rattachées à la fenêtre Window (requis à cause du script type="module")
+        window.deleteQuestion = function(id) {
+            if(confirm("Supprimer définitivement cette question ?")) {
+                const itemRef = ref(db, `questions/${id}`);
+                remove(itemRef);
+            }
+        }
+
+        window.answerQuestion = function(id) {
+            const text = prompt("Votre réponse en tant que Eclipse Groupe :");
+            if(text === null) return;
+            
+            const itemRef = ref(db, `questions/${id}`);
+            update(itemRef, {
+                answer: text.trim() || null
+            });
+        }
+
+        // Affichage Public
+        function renderQuestions() {
+            wrapperQuestions.innerHTML = "";
+            if(dbQuestions.length === 0) {
+                wrapperQuestions.innerHTML = `<p style="color: var(--text-gray);">Aucune question pour l'instant. Soyez le premier !</p>`;
+                return;
+            }
+
+            dbQuestions.forEach(q => {
+                const item = document.createElement('div');
+                item.className = 'question-item';
+                let answerHTML = q.answer ? `<div class="answer-box"><div class="answer-author">▼ Eclipse Groupe</div><p>${q.answer}</p></div>` : '';
+
+                item.innerHTML = `
+                    <div class="question-header">
+                        <span class="question-author">${q.author}</span>
+                        <span style="font-size:0.8rem; color: var(--text-gray);">${q.date}</span>
+                    </div>
+                    <p class="question-text">${q.message}</p>
+                    ${answerHTML}
+                `;
+                wrapperQuestions.appendChild(item);
+            });
+        }
+
+        // Affichage Panel d'administration
+        function renderAdmin() {
+            adminTableBody.innerHTML = "";
+            dbQuestions.forEach(q => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${q.author}</strong></td>
+                    <td>
+                        <p style="font-size:0.9rem; margin-bottom:5px;">${q.message}</p>
+                        <small style="color:var(--badge-green)">Rép: ${q.answer || '<em>Aucune réponse</em>'}</small>
+                    </td>
+                    <td class="admin-actions">
+                        <button class="btn-admin-rep" onclick="answerQuestion('${q.id}')">Répondre</button>
+                        <button class="btn-admin-del" onclick="deleteQuestion('${q.id}')">Supprimer</button>
+                    </td>
+                `;
+                adminTableBody.appendChild(tr);
+            });
+        }
+
+        // Logique UI et Navigation
+        qaAnon.addEventListener('change', () => {
+            if (qaAnon.checked) {
+                qaName.value = "Anonyme"; qaName.disabled = true; qaName.removeAttribute('required');
+            } else {
+                qaName.value = ""; qaName.disabled = false; qaName.setAttribute('required', 'required');
             }
         });
 
+        btnOpen.addEventListener('click', () => modal.classList.add('active'));
+        btnClose.addEventListener('click', () => modal.classList.remove('active'));
+        modal.addEventListener('click', (e) => { if(e.target === modal) modal.classList.remove('active'); });
+
         function clearActive() {
-            navAccueil.classList.remove('active');
-            navSites.classList.remove('active');
-            navReseaux.classList.remove('active');
-            navApropos.classList.remove('active');
+            [navAccueil, navSites, navReseaux, navQuestions, navApropos].forEach(el => el.classList.remove('active'));
         }
 
         navAccueil.addEventListener('click', () => {
-            clearActive();
-            navAccueil.classList.add('active');
-            sectionSites.classList.remove('hidden');
-            sectionReseaux.classList.add('hidden');
-            sectionApropos.classList.remove('hidden');
-            
+            clearActive(); navAccueil.classList.add('active');
+            sectionSites.classList.remove('hidden'); sectionReseaux.classList.add('hidden');
+            sectionQuestions.classList.add('hidden'); sectionApropos.classList.remove('hidden');
             sectionMainTitle.textContent = "Accueil";
-            
             descSport.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
-            btnSport.classList.add('hidden');
-            
-            descRocket.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
-            btnRocket.classList.add('hidden');
-
-            descReverse.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
-            btnReverse.classList.add('hidden');
-
+            btnSport.classList.add('hidden'); descRocket.innerHTML = descSport.innerHTML; btnRocket.classList.add('hidden');
+            descReverse.innerHTML = descSport.innerHTML; btnReverse.classList.add('hidden');
             descNutrition.innerHTML = '<span class="redirect-text">Ce site est actuellement indisponible (Maintenance).</span>';
-            btnNutrition.classList.add('hidden');
-
-            collabCard.classList.remove('hidden');
-            cardReverseMan.classList.remove('hidden');
-            newsCard.classList.remove('hidden');
+            btnNutrition.classList.add('hidden'); collabCard.classList.remove('hidden'); cardReverseMan.classList.remove('hidden'); newsCard.classList.remove('hidden');
         });
 
         navSites.addEventListener('click', () => {
-            clearActive();
-            navSites.classList.add('active');
-            sectionSites.classList.remove('hidden');
-            sectionReseaux.classList.add('hidden');
-            sectionApropos.classList.add('hidden');
-            
+            clearActive(); navSites.classList.add('active');
+            sectionSites.classList.remove('hidden'); sectionReseaux.classList.add('hidden'); sectionQuestions.classList.add('hidden'); sectionApropos.classList.add('hidden');
             sectionMainTitle.textContent = "Mes Créations & Plateformes";
-            
-            descSport.textContent = "Le super site pour perdre du poids ou gagner du muscle !";
-            btnSport.classList.remove('hidden');
-            
-            descRocket.textContent = "Envie de devenir fort à Rocket League, ce site est fait pour toi !";
-            btnRocket.classList.remove('hidden');
-
-            descReverse.textContent = "Prêt à inverser la tendance ? Découvrez le super jeu Reverse-man !";
-            btnReverse.classList.remove('hidden');
-
-            descNutrition.textContent = "Apprends à mieux manger et équilibrer tes assiettes au quotidien !";
-            btnNutrition.classList.remove('hidden');
-            btnNutrition.classList.add('btn-disabled');
-            btnNutrition.removeAttribute('href'); 
-
-            collabCard.classList.add('hidden');
-            cardReverseMan.classList.remove('hidden');
-            newsCard.classList.add('hidden');
+            descSport.textContent = "Le super site pour perdre du poids ou gagner du muscle !"; btnSport.classList.remove('hidden');
+            descRocket.textContent = "Envie de devenir fort à Rocket League, ce site est fait pour toi !"; btnRocket.classList.remove('hidden');
+            descReverse.textContent = "Prêt à inverser la tendance ? Découvrez le super jeu Reverse-man !"; btnReverse.classList.remove('hidden');
+            descNutrition.textContent = "Apprends à mieux manger et équilibrer tes assiettes au quotidien !"; btnNutrition.classList.remove('hidden');
+            btnNutrition.classList.add('btn-disabled'); btnNutrition.removeAttribute('href');
+            collabCard.classList.add('hidden'); cardReverseMan.classList.remove('hidden'); newsCard.classList.add('hidden');
         });
 
         navReseaux.addEventListener('click', () => {
-            clearActive();
-            navReseaux.classList.add('active');
-            sectionSites.classList.add('hidden');
-            sectionReseaux.classList.remove('hidden');
-            sectionApropos.classList.add('hidden');
+            clearActive(); navReseaux.classList.add('active');
+            sectionSites.classList.add('hidden'); sectionReseaux.classList.remove('hidden'); sectionQuestions.classList.add('hidden'); sectionApropos.classList.add('hidden');
+        });
+
+        navQuestions.addEventListener('click', () => {
+            clearActive(); navQuestions.classList.add('active');
+            sectionSites.classList.add('hidden'); sectionReseaux.classList.add('hidden'); sectionQuestions.classList.remove('hidden'); sectionApropos.classList.add('hidden');
+            renderQuestions();
         });
 
         navApropos.addEventListener('click', () => {
-            clearActive();
-            navApropos.classList.add('active');
-            sectionSites.classList.add('hidden');
-            sectionReseaux.classList.add('hidden');
-            sectionApropos.classList.remove('hidden');
+            clearActive(); navApropos.classList.add('active');
+            sectionSites.classList.add('hidden'); sectionReseaux.classList.add('hidden'); sectionQuestions.classList.add('hidden'); sectionApropos.classList.remove('hidden');
         });
 
-        // Init au chargement
-        descSport.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
-        btnSport.classList.add('hidden');
-        descRocket.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
-        btnRocket.classList.add('hidden');
-        descReverse.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
-        btnReverse.classList.add('hidden');
-        descNutrition.innerHTML = '<span class="redirect-text">Ce site est actuellement indisponible (Maintenance).</span>';
-        btnNutrition.classList.add('hidden');
-        sectionMainTitle.textContent = "Accueil";
+        // Init au lancement
+        navAccueil.click();
+        checkAdminIP();
     </script>
-
 </body>
 </html>
