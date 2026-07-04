@@ -16,12 +16,12 @@
             --text-gray: #94a3b8;
             
             /* Couleurs des Badges d'état */
-            --badge-green: #10b981;    /* En ligne / Eclipse Groupe */
-            --badge-yellow: #f59e0b;   /* En cours / Bientôt */
-            --badge-purple: #a855f7;   /* Collaborateur */
-            --badge-blue: #00a8ff;     /* Actualités */
-            --badge-red: #ef4444;      /* Maintenance / Alerte */
-            --badge-twitch: #9146ff;   /* Twitch */
+            --badge-green: #10b981;    
+            --badge-yellow: #f59e0b;   
+            --badge-purple: #a855f7;   
+            --badge-blue: #00a8ff;     
+            --badge-red: #ef4444;      
+            --badge-twitch: #9146ff;   
         }
 
         * {
@@ -210,7 +210,6 @@
             position: absolute;
             top: 1rem;
             left: 1rem;
-            
             font-size: 0.75rem;
             font-weight: 800;
             padding: 0.35rem 0.9rem;
@@ -238,6 +237,29 @@
             font-size: 0.95rem;
             line-height: 1.6;
             margin-bottom: 2rem;
+        }
+
+        .news-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .news-list li {
+            position: relative;
+            padding-left: 1.2rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .news-list li::before {
+            content: "•";
+            color: var(--cyan-glow);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
         }
 
         .redirect-text {
@@ -279,7 +301,7 @@
             box-shadow: none;
         }
 
-        /* --- SECTION À PROPOS & RÉSEAUX & QUESTIONS --- */
+        /* --- SECTIONS DE BASE --- */
         .about-section, .networks-section, .qa-section {
             background-color: var(--bg-card);
             border: 1px solid #233147;
@@ -382,11 +404,12 @@
             line-height: 1.5;
         }
 
+        /* --- RÉPONSE ECLIPSE GROUPE EN ROUGE SANS FLÈCHE --- */
         .answer-box {
             margin-top: 1rem;
             padding-top: 1rem;
             border-top: 1px solid #233147;
-            color: var(--badge-green);
+            color: var(--badge-red);
         }
 
         .answer-author {
@@ -395,58 +418,178 @@
             font-size: 0.85rem;
             letter-spacing: 0.5px;
             margin-bottom: 0.3rem;
+            color: var(--badge-red);
         }
 
-        /* --- ADMIN PANEL SYSTEM --- */
+        /* --- DESIGN DU PANEL ADMIN CYAN SOMBRE (PLUS DE ROUGE) --- */
         .admin-panel {
-            background: #1e1b29;
-            border: 2px solid #ef4444;
-            border-radius: 12px;
-            padding: 2rem;
-            margin-top: 5rem;
+            background: #111625;
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-top: 4rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
+        
+        .admin-header-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 1.5rem;
+        }
+
         .admin-title {
-            color: #ef4444;
+            color: var(--cyan-glow);
             font-size: 1.4rem;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
         }
+
+        .admin-table-wrapper {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #1e2538;
+        }
+
         .admin-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1rem;
-        }
-        .admin-table th, .admin-table td {
-            border: 1px solid #3b334a;
-            padding: 0.8rem;
+            background: #141a29;
             text-align: left;
         }
+
         .admin-table th {
-            background: #2a2438;
-        }
-        .admin-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .btn-admin-del {
-            background: var(--badge-red);
-            color: white;
-            border: none;
-            padding: 0.4rem 0.8rem;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .btn-admin-rep {
-            background: var(--badge-green);
-            color: white;
-            border: none;
-            padding: 0.4rem 0.8rem;
-            border-radius: 4px;
-            cursor: pointer;
+            background: #1c2336;
+            color: var(--text-gray);
+            font-weight: 700;
+            padding: 1rem 1.2rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #252f47;
         }
 
-        /* --- STYLES DE LA FENÊTRE D'INFOS (MODALE) --- */
+        .admin-table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid #1e2538;
+            vertical-align: top;
+            color: #e2e8f0;
+        }
+
+        .admin-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .admin-table tr:hover {
+            background: #192033;
+        }
+
+        /* --- ACTIONS INTEGRÉES DIRECTEMENT DANS L'ADMIN --- */
+        .admin-actions-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .inline-reply-box {
+            display: flex;
+            gap: 8px;
+            margin-top: 5px;
+            width: 100%;
+        }
+
+        .inline-reply-input {
+            flex: 1;
+            background: #0b0f19;
+            border: 1px solid #252f47;
+            color: white;
+            padding: 0.4rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            outline: none;
+        }
+        
+        .inline-reply-input:focus {
+            border-color: var(--cyan-glow);
+        }
+
+        .btn-inline-send {
+            background: #2ed573;
+            color: #0b0f19;
+            border: none;
+            padding: 0 0.8rem;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .inline-confirm-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 71, 87, 0.1);
+            padding: 6px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 71, 87, 0.3);
+        }
+
+        .btn-admin-action-base {
+            border: 1px solid #252f47;
+            background: #1c2336;
+            color: var(--text-gray);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .btn-admin-action-base:hover {
+            border-color: var(--cyan-glow);
+            color: white;
+        }
+
+        .btn-confirm-yes {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 2px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .btn-confirm-no {
+            background: #747d8c;
+            color: white;
+            border: none;
+            padding: 2px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .admin-answer-preview {
+            display: block;
+            margin-top: 6px;
+            font-size: 0.85rem;
+            color: #ff4757; 
+            background: rgba(255, 71, 87, 0.05);
+            padding: 6px 10px;
+            border-radius: 4px;
+            border-left: 2px solid #ff4757;
+        }
+
+        /* --- STYLES MODALE --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -524,7 +667,6 @@
             text-decoration: underline;
         }
 
-        /* --- CLASSE DE MASQUAGE --- */
         .hidden {
             display: none !important;
         }
@@ -533,7 +675,6 @@
             margin-bottom: 5rem;
         }
 
-        /* --- FOOTER --- */
         footer {
             text-align: center;
             margin-top: 6rem;
@@ -568,10 +709,14 @@
                 <div class="grid-layout">
                     
                     <article class="project-card" id="news-card">
-                        <span class="status-badge info">Actualité</span>
+                        <span class="status-badge info">Actualités & Roadmaps</span>
                         <div>
-                            <h3>Mise à jour</h3>
-                            <p>Vous pouvez désormais officiellement consulter l'ensemble de mes profils et réseaux externes directement depuis l'onglet dédié dans la navigation. Merci pour votre soutien !</p>
+                            <h3>Notes de mise à jour</h3>
+                            <ul class="news-list">
+                                <li><strong>Espace Communautaire :</strong> Une section dédiée aux questions est désormais ouverte. N'hésitez pas à y soumettre vos retours ou interrogations !</li>
+                                <li><strong>Site Nutrition :</strong> Actuellement en refonte technique, la plateforme fera très bientôt son grand retour avec de nouveaux contenus.</li>
+                                <li><strong>Futur Projet :</strong> J'entame une phase d'étude préliminaire concernant le développement d'un tout nouveau jeu vidéo (projet à confirmer).</li>
+                            </ul>
                         </div>
                     </article>
 
@@ -638,7 +783,7 @@
                 </div>
             </section>
 
-            <!-- SECTION QUESTIONS -->
+            <!-- SECTION QUESTIONS (CONTIENT MAINTENANT LE PANEL ADMIN TOUT EN BAS) -->
             <section id="section-questions" class="qa-section hidden">
                 <h2 class="section-title">Foire Aux Questions & Entraide</h2>
                 
@@ -654,32 +799,36 @@
                     <button type="submit" class="btn-submit-qa">Envoyer la question</button>
                 </form>
 
-                <div class="questions-list" id="wrapper-questions">
+                <div class="questions-list" id="wrapper-questions" style="margin-bottom: 4rem;">
                     <!-- Les questions apparaitront ici -->
+                </div>
+
+                <!-- LE PANEL ADMIN NE S'AFFICHE QUE ICI ET UNIQUEMENT POUR TOI -->
+                <div id="section-admin" class="admin-panel hidden">
+                    <div class="admin-header-box">
+                        <h3 class="admin-title">Administration des Questions</h3>
+                        <span style="font-size: 0.8rem; color: var(--cyan-glow); border: 1px solid var(--cyan-glow); padding: 4px 12px; border-radius: 20px; font-weight: bold; background: rgba(0,168,255,0.05);">Accès Maître</span>
+                    </div>
+                    <div class="admin-table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%;">Auteur</th>
+                                    <th style="width: 50%;">Question & Réponse</th>
+                                    <th style="width: 30%;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-table-body">
+                                <!-- Lignes générées en JS -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
             <section id="section-a-propos" class="about-section">
                 <h2 class="section-title" style="margin-bottom: 1.5rem;">À Propos</h2>
                 <p class="about-text">Je suis un jeune développeur qui adore l'informatique.</p>
-            </section>
-            
-            <!-- CONSOLE ADMINISTRATION PRIVÉE -->
-            <section id="section-admin" class="admin-panel hidden">
-                <h3 class="admin-title">Panel Admin — Eclipse Groupe Privé</h3>
-                <p style="color: var(--text-gray); margin-bottom: 1rem;">Gérez ici les messages reçus et répondez-y directement.</p>
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Auteur</th>
-                            <th>Question</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-table-body">
-                        <!-- Lignes générées en JS -->
-                    </tbody>
-                </table>
             </section>
 
         </main>
@@ -712,10 +861,10 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
         import { getDatabase, ref, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
 
-        // Configuration Firebase officielle
         const firebaseConfig = {
             apiKey: "AIzaSyBlAiJFZPkZu5nBQbdEK6T2M8dP9Hxbjg4",
             authDomain: "mon-hub-73234.firebaseapp.com",
+            databaseURL: "https://mon-hub-73234-default-rtdb.europe-west1.firebasedatabase.app",
             projectId: "mon-hub-73234",
             storageBucket: "mon-hub-73234.firebasestorage.app",
             messagingSenderId: "471134899312",
@@ -723,10 +872,8 @@
             measurementId: "G-R1NDXE4ZRC"
         };
 
-        // Ton adresse IP sécurisée pour l'accès Admin
         const MON_IP_ADMIN = "92.94.143.4"; 
 
-        // Initialisation de Firebase
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
         const questionsRef = ref(db, 'questions');
@@ -776,7 +923,7 @@
                 const response = await fetch('https://api.ipify.org?format=json');
                 const data = await response.json();
                 if (data.ip === MON_IP_ADMIN) {
-                    sectionAdmin.classList.remove('hidden');
+                    sectionAdmin.setAttribute('data-is-admin', 'true');
                 }
             } catch (error) {
                 console.error("Erreur de récupération IP:", error);
@@ -796,7 +943,6 @@
             renderAdmin();
         });
 
-        // Envoi de données à Firebase
         formQa.addEventListener('submit', (e) => {
             e.preventDefault();
             const authorName = qaAnon.checked ? "Anonyme" : qaName.value.trim();
@@ -815,23 +961,32 @@
             if(!qaAnon.checked) qaName.value = "";
         });
 
-        // Actions globales (Modération) rattachées à la fenêtre Window (requis à cause du script type="module")
-        window.deleteQuestion = function(id) {
-            if(confirm("Supprimer définitivement cette question ?")) {
-                const itemRef = ref(db, `questions/${id}`);
-                remove(itemRef);
-            }
-        }
+        // --- NOUVELLES ACTIONS DIRECTES SANS POPUP WINDOW ---
+        window.showInlineReply = function(id) {
+            document.getElementById(`reply-container-${id}`).classList.remove('hidden');
+        };
 
-        window.answerQuestion = function(id) {
-            const text = prompt("Votre réponse en tant que Eclipse Groupe :");
-            if(text === null) return;
-            
+        window.submitInlineReply = function(id) {
+            const inputField = document.getElementById(`reply-input-${id}`);
+            const text = inputField.value.trim();
+            if(!text) return;
+
             const itemRef = ref(db, `questions/${id}`);
-            update(itemRef, {
-                answer: text.trim() || null
-            });
-        }
+            update(itemRef, { answer: text });
+        };
+
+        window.showInlineDelete = function(id) {
+            document.getElementById(`delete-confirm-${id}`).classList.remove('hidden');
+        };
+
+        window.cancelInlineDelete = function(id) {
+            document.getElementById(`delete-confirm-${id}`).classList.add('hidden');
+        };
+
+        window.confirmInlineDelete = function(id) {
+            const itemRef = ref(db, `questions/${id}`);
+            remove(itemRef);
+        };
 
         // Affichage Public
         function renderQuestions() {
@@ -844,7 +999,7 @@
             dbQuestions.forEach(q => {
                 const item = document.createElement('div');
                 item.className = 'question-item';
-                let answerHTML = q.answer ? `<div class="answer-box"><div class="answer-author">▼ Eclipse Groupe</div><p>${q.answer}</p></div>` : '';
+                let answerHTML = q.answer ? `<div class="answer-box"><div class="answer-author">Eclipse Groupe</div><p>${q.answer}</p></div>` : '';
 
                 item.innerHTML = `
                     <div class="question-header">
@@ -858,20 +1013,39 @@
             });
         }
 
-        // Affichage Panel d'administration
+        // Affichage Panel d'administration direct
         function renderAdmin() {
             adminTableBody.innerHTML = "";
             dbQuestions.forEach(q => {
                 const tr = document.createElement('tr');
+                const answerRow = q.answer ? `<span class="admin-answer-preview">Rép: ${q.answer}</span>` : '<span class="admin-answer-preview" style="color:var(--text-gray); border-color:#252f47; background:transparent;"><em>En attente de réponse</em></span>';
+                
                 tr.innerHTML = `
-                    <td><strong>${q.author}</strong></td>
+                    <td><strong style="color:var(--cyan-glow); font-size:0.95rem;">${q.author}</strong></td>
                     <td>
-                        <p style="font-size:0.9rem; margin-bottom:5px;">${q.message}</p>
-                        <small style="color:var(--badge-green)">Rép: ${q.answer || '<em>Aucune réponse</em>'}</small>
+                        <p style="font-size:0.95rem; line-height:1.4; color:#fff;">${q.message}</p>
+                        ${answerRow}
+                        
+                        <!-- Zone d'écriture de réponse intégrée -->
+                        <div id="reply-container-${q.id}" class="inline-reply-box hidden">
+                            <input type="text" id="reply-input-${q.id}" class="inline-reply-input" placeholder="Écrire la réponse d'Eclipse Groupe..." value="${q.answer || ''}">
+                            <button class="btn-inline-send" onclick="submitInlineReply('${q.id}')">OK</button>
+                        </div>
                     </td>
-                    <td class="admin-actions">
-                        <button class="btn-admin-rep" onclick="answerQuestion('${q.id}')">Répondre</button>
-                        <button class="btn-admin-del" onclick="deleteQuestion('${q.id}')">Supprimer</button>
+                    <td>
+                        <div class="admin-actions-layout">
+                            <div style="display:flex; gap:8px;">
+                                <button class="btn-admin-action-base" onclick="showInlineReply('${q.id}')">Répondre</button>
+                                <button class="btn-admin-action-base" style="color:#ff4757;" onclick="showInlineDelete('${q.id}')">Supprimer</button>
+                            </div>
+                            
+                            <!-- Boite de confirmation de suppression intégrée -->
+                            <div id="delete-confirm-${q.id}" class="inline-confirm-box hidden">
+                                <span style="font-size:0.75rem; color:#fff;">Supprimer ?</span>
+                                <button class="btn-confirm-yes" onclick="confirmInlineDelete('${q.id}')">Oui</button>
+                                <button class="btn-confirm-no" onclick="cancelInlineDelete('${q.id}')">Non</button>
+                            </div>
+                        </div>
                     </td>
                 `;
                 adminTableBody.appendChild(tr);
@@ -893,6 +1067,7 @@
 
         function clearActive() {
             [navAccueil, navSites, navReseaux, navQuestions, navApropos].forEach(el => el.classList.remove('active'));
+            sectionAdmin.classList.add('hidden'); 
         }
 
         navAccueil.addEventListener('click', () => {
@@ -928,6 +1103,9 @@
             clearActive(); navQuestions.classList.add('active');
             sectionSites.classList.add('hidden'); sectionReseaux.classList.add('hidden'); sectionQuestions.classList.remove('hidden'); sectionApropos.classList.add('hidden');
             renderQuestions();
+            if(sectionAdmin.getAttribute('data-is-admin') === 'true') {
+                sectionAdmin.classList.remove('hidden');
+            }
         });
 
         navApropos.addEventListener('click', () => {
