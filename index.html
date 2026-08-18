@@ -708,14 +708,23 @@
                 <h2 class="section-title" id="section-main-title">Mes Créations & Plateformes</h2>
                 <div class="grid-layout">
                     
-                    <article class="project-card" id="news-card">
-                        <span class="status-badge info">Actualités & Roadmaps</span>
+                    <article class="project-card" id="card-bientôt">
+                        <span class="status-badge warning" id="badge-bientôt">Bientôt</span>
                         <div>
-                            <h3>Notes de mise à jour</h3>
+                            <h3>Projet Entreprise</h3>
+                            <p id="desc-bientôt">Le meilleur site pour les meilleures entreprises.</p>
+                        </div>
+                        <button class="btn-visit btn-disabled" id="btn-bientôt">Bientôt disponible</button>
+                    </article>
+
+                    <article class="project-card" id="news-card">
+                        <span class="status-badge info">Actualités & Roadmap</span>
+                        <div>
+                            <h3>Nouveautés</h3>
                             <ul class="news-list">
-                                <li><strong>Espace Communautaire :</strong> Une section dédiée aux questions est désormais ouverte. N'hésitez pas à y soumettre vos retours ou interrogations !</li>
-                                <li><strong>Site Nutrition :</strong> Actuellement en refonte technique, la plateforme fera très bientôt son grand retour avec de nouveaux contenus.</li>
-                                <li><strong>Futur Projet :</strong> J'entame une phase d'étude préliminaire concernant le développement d'un tout nouveau jeu vidéo (projet à confirmer).</li>
+                                <li><strong>Site Nutrition :</strong> La plateforme est officiellement de retour en ligne et de nouveau accessible !</li>
+                                <li><strong>Développements en cours :</strong> Lancement de plusieurs nouveaux projets et ajustements majeurs sur les plateformes existantes.</li>
+                                <li><strong>Espace Communautaire :</strong> La section dédiée aux questions reste ouverte pour tous vos retours et échanges.</li>
                             </ul>
                         </div>
                     </article>
@@ -730,7 +739,7 @@
                     </article>
 
                     <article class="project-card" id="card-nutrition">
-                        <span class="status-badge danger" id="badge-nutrition">Maintenance</span>
+                        <span class="status-badge success" id="badge-nutrition">En Ligne</span>
                         <div>
                             <h3>Mon Site Nutrition</h3>
                             <p id="desc-nutrition">Apprends à mieux manger et équilibrer tes assiettes au quotidien !</p>
@@ -828,7 +837,7 @@
 
             <section id="section-a-propos" class="about-section">
                 <h2 class="section-title" style="margin-bottom: 1.5rem;">À Propos</h2>
-                <p class="about-text">Je suis un jeune développeur qui adore l'informatique.</p>
+                <p class="about-text">Je suis un jeune développeur passionné par l'informatique et la création numérique.</p>
             </section>
 
         </main>
@@ -900,6 +909,8 @@
         const btnReverse = document.getElementById('btn-reverse');
         const descNutrition = document.getElementById('desc-nutrition');
         const btnNutrition = document.getElementById('btn-nutrition');
+        const descBientôt = document.getElementById('desc-bientôt');
+        const btnBientôt = document.getElementById('btn-bientôt');
         const collabCard = document.getElementById('collab-card');
         const cardReverseMan = document.getElementById('card-reverse-man');
         const newsCard = document.getElementById('news-card');
@@ -961,7 +972,7 @@
             if(!qaAnon.checked) qaName.value = "";
         });
 
-        // --- NOUVELLES ACTIONS DIRECTES SANS POPUP WINDOW ---
+        // --- ACTIONS ADMIN ---
         window.showInlineReply = function(id) {
             document.getElementById(`reply-container-${id}`).classList.remove('hidden');
         };
@@ -1026,7 +1037,6 @@
                         <p style="font-size:0.95rem; line-height:1.4; color:#fff;">${q.message}</p>
                         ${answerRow}
                         
-                        <!-- Zone d'écriture de réponse intégrée -->
                         <div id="reply-container-${q.id}" class="inline-reply-box hidden">
                             <input type="text" id="reply-input-${q.id}" class="inline-reply-input" placeholder="Écrire la réponse d'Eclipse Groupe..." value="${q.answer || ''}">
                             <button class="btn-inline-send" onclick="submitInlineReply('${q.id}')">OK</button>
@@ -1039,7 +1049,6 @@
                                 <button class="btn-admin-action-base" style="color:#ff4757;" onclick="showInlineDelete('${q.id}')">Supprimer</button>
                             </div>
                             
-                            <!-- Boite de confirmation de suppression intégrée -->
                             <div id="delete-confirm-${q.id}" class="inline-confirm-box hidden">
                                 <span style="font-size:0.75rem; color:#fff;">Supprimer ?</span>
                                 <button class="btn-confirm-yes" onclick="confirmInlineDelete('${q.id}')">Oui</button>
@@ -1078,8 +1087,9 @@
             descSport.innerHTML = '<span class="redirect-text">Veuillez vous rendre dans l\'onglet Mes Sites pour y accéder.</span>';
             btnSport.classList.add('hidden'); descRocket.innerHTML = descSport.innerHTML; btnRocket.classList.add('hidden');
             descReverse.innerHTML = descSport.innerHTML; btnReverse.classList.add('hidden');
-            descNutrition.innerHTML = '<span class="redirect-text">Ce site est actuellement indisponible (Maintenance).</span>';
-            btnNutrition.classList.add('hidden'); collabCard.classList.remove('hidden'); cardReverseMan.classList.remove('hidden'); newsCard.classList.remove('hidden');
+            descNutrition.innerHTML = descSport.innerHTML; btnNutrition.classList.add('hidden');
+            descBientôt.innerHTML = descSport.innerHTML; btnBientôt.classList.add('hidden');
+            collabCard.classList.remove('hidden'); cardReverseMan.classList.remove('hidden'); newsCard.classList.remove('hidden');
         });
 
         navSites.addEventListener('click', () => {
@@ -1090,7 +1100,9 @@
             descRocket.textContent = "Envie de devenir fort à Rocket League, ce site est fait pour toi !"; btnRocket.classList.remove('hidden');
             descReverse.textContent = "Prêt à inverser la tendance ? Découvrez le super jeu Reverse-man !"; btnReverse.classList.remove('hidden');
             descNutrition.textContent = "Apprends à mieux manger et équilibrer tes assiettes au quotidien !"; btnNutrition.classList.remove('hidden');
-            btnNutrition.classList.add('btn-disabled'); btnNutrition.removeAttribute('href');
+            descBientôt.textContent = "Le meilleur site pour les meilleures entreprises."; btnBientôt.classList.remove('hidden');
+            btnNutrition.classList.remove('btn-disabled'); 
+            btnNutrition.setAttribute('href', 'https://monsite1235.github.io/nutrition/');
             collabCard.classList.add('hidden'); cardReverseMan.classList.remove('hidden'); newsCard.classList.add('hidden');
         });
 
